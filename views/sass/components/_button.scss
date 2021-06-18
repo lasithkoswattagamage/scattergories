@@ -1,0 +1,101 @@
+.btn {
+    &, // For <button> element
+    &:link,
+    &:visited {
+        position: relative;
+        text-transform: uppercase;
+        text-decoration: none;
+        display: inline-block;
+        border-radius: 10rem;
+        transition: all 0.22s;  /*Apply condition to all animations */
+        transition-property: transform, box-shadow;
+        font-size: $default-font-size;
+
+        //Changes for <button> element
+        border: none;
+        font-family: inherit;
+        cursor: pointer;
+    }
+    
+    &--white {
+        background-color: $color-white;
+        color: $color-grey-dark;
+        padding: 1.5rem 4rem;
+
+        &::after {
+            background-color: $color-white;
+        }
+    }
+    
+    &--green {
+        background-color: $color-primary-dark;
+        color: $color-white;
+        padding: 1.5rem 4rem;
+
+        &::after {
+            background-color: rgba($color-primary-dark,0.5);
+        }
+    }
+
+    /* Clicking Effect */
+    &:hover,
+    &:focus {
+        transform: translateY(-0.3rem); /* Move upwards */
+        box-shadow: 0 1rem 2rem rgba($color-black,0.2);
+        outline: none;
+    }
+    
+    &:active {
+        transform: translateY(-0.1rem); /* Move upwards slightly less */
+        box-shadow: 0 0.5rem 1rem rgba($color-black,0.2);
+    }
+    
+    &::after {
+        content: "";
+        display: inline-block; /* Match the previous element*/
+        height: 100%;
+        width: 100%;
+        border-radius: 10rem;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        transition: all .4s ease-out;
+    }
+        
+    &:hover::after {
+        transform: scaleX(1.15) scaleY(1.5);
+        opacity: 0;
+    }
+    
+    &--animated {
+        animation: moveInBottom 0.5s ease-out 0.5s;
+        animation-fill-mode: backwards;
+    }
+    
+}
+
+.btn-text {
+    &:link,
+    &:visited {
+        font-size: $default-font-size;
+        text-decoration: none;
+        color: $color-primary-dark;
+        display: inline-block;
+        border-bottom: 1px solid $color-primary-dark;
+        padding: 0.4rem 0.8rem;
+        transition: all 0.25s;
+    }
+
+    &:hover {
+        background-color: $color-primary-dark;
+        color: $color-white;
+        transform: translateY(-0.3rem); /* Move upwards */
+        box-shadow: 0 1rem 2rem rgba($color-black,0.2);
+    }
+
+    &:active {
+        transform: translateY(-0.1rem); /* Move upwards slightly less */
+        box-shadow: 0 0.75rem 1.8rem rgba($color-black,0.2);
+    }
+}

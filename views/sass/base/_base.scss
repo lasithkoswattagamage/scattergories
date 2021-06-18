@@ -1,0 +1,41 @@
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html {
+    // This defines the base font-size
+    font-size: 62.5%;
+
+    @include respond(tab-port) {
+        font-size: 50%;
+    }
+
+    // @include respond(phone) {
+    //     font-size: 45%;
+    // }
+}
+
+body {
+    box-sizing: border-box;
+    padding: $padding-large;
+    background-color: $color-grey-light-1; // Neutral grey
+
+    @include respond(tab-land) {
+        padding: $padding-small;
+    }
+
+    @include respond(phone) {
+        padding: 0;
+    }
+}
+
+input {
+    // Remove IOS Input Shadow
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+}

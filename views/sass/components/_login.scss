@@ -1,0 +1,145 @@
+.login {
+    // Padding on top and bottom is 3rem
+    height: calc(100vh - 2 * #{$padding-width-height});
+    position: relative;
+    
+    @include clearfix;
+    
+    &__well {
+        // height: 50%;
+        max-width: 50rem;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        margin: 0 auto;
+
+        @include respond(phone) {
+            width: 80%;
+        }
+    }
+
+    &__input {
+        font-size: 1.5rem;
+        // All font elements automatically inherit the default font from the universal selector
+        // except inputs. Therefore you have to set the font-family to inherit
+        font-family: inherit;
+        // Same thing applies to color. Must force it to inherit colour
+        display: block;
+        width: 100%;
+        padding: 1.5rem 1.5rem;
+        border-radius: 5rem 5rem 5rem 5rem;
+        border: 0.1rem $color-grey-dark-4 solid;
+        transition: all .15s;
+        backface-visibility: hidden;
+
+        &:focus {
+            outline: none;
+            padding: 1.39rem 1.5rem;
+            border-bottom: 0.4rem solid $color-primary-dark;
+            border-radius: 2.5rem 2.5rem 0rem 0rem;
+        }
+
+        &:focus:invalid  {
+            border-bottom: 4px solid red;
+        }
+
+        &::-webkit-input-placeholder {
+            // Font-colour of the placeholder font
+            color: $color-grey-dark-2;
+        }
+
+    }
+
+    &__group {
+        &:not(:last-child) {
+            margin-bottom: 1rem;
+        }
+    }
+
+    &__label {
+        display: block;
+        position: relative;
+        font-size: 1.3rem;
+        color: $color-grey-dark-2;
+        padding-left: 1.5rem;
+        opacity: 1;
+        z-index: -1;
+        top: -3rem;
+        transition: all .2s ease;
+    }
+
+    &__button {
+        // All font elements automatically inherit the default font from the universal selector
+        // except inputs. Therefore you have to set the font-family to inherit
+        font-family: inherit;
+        font-size: 1.9rem;
+        font-weight: 500;
+        color: $color-white;
+        text-decoration: none;
+        text-align: center;
+
+        // Same thing applies to color. Must force it to inherit colour
+        display: inline-block;
+        width: 100%;
+        padding: 1rem 2rem;
+        border-radius: 5rem;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 0.6rem 0.6rem rgba($color-black, .25);
+        transition: all .2s;
+        outline: none;
+
+        &:hover {
+            transform: translateY(-0.2rem);
+            box-shadow: 0 0.9rem 1rem rgba($color-black, .2);
+        }
+
+        &:active {
+            transform: translateY(0.2rem);
+            box-shadow: 0 0.6rem 0.6rem rgba($color-black, .35);
+        }
+        
+        &--orange {
+            background-image: linear-gradient(to right bottom, $color-secondary-light, $color-secondary-dark);
+        }
+
+        &--blue {
+            background-image: linear-gradient(to right bottom, $color-tertiary-light, $color-tertiary-dark);
+        }
+        
+    }
+
+    button.login__button {
+        padding: 1.45rem 2rem;
+    }
+
+
+    // Login Layouts
+    #join {
+        display: none;
+    }
+
+    #create {
+        display: none;
+    }
+
+    // Functionality
+    &__input:not(:invalid) + &__label {
+        transform: translateY(3rem);
+    }
+
+    #join:target, #create:target {
+        display: initial;
+    }
+
+    #join:target ~ .login__create-join, #create:target ~ .login__create-join  {
+        display: none;
+    }
+
+    @include respond(phone) {
+        &__input {
+            font-size: 1.7rem;
+        }
+    }
+
+}

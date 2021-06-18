@@ -1,0 +1,51 @@
+.row {
+    // max-width: $grid-width;
+    margin: 0 auto; // Trick to center block elements inside other block elements   
+    
+    // :not is the equivalent of a boolena operator
+    // We do not want last row element to have a bottom margin
+    &:not(:last-child) {
+        margin-bottom: $gutter-vertical;
+    }
+
+
+    @include clearfix;
+
+    [class^="col-"] {
+        float: left;
+        
+        // We do not want last col to havea a margin-right
+        &:not(:last-child) {
+            margin-right: $gutter-horizontal;
+        }
+    }
+
+    .col-1-of-1 {
+        width: 100%;
+    }
+
+    .col-1-of-2 {
+        width: calc((100% - #{$gutter-horizontal}) / 2);
+    }
+
+    .col-1-of-3 {
+        width: calc((100% - 2 * #{$gutter-horizontal}) / 3);
+    }
+
+    .col-2-of-3 {
+        width: calc((200% - #{$gutter-horizontal}) / 3);
+    }
+
+    .col-1-of-4 {
+        width: calc((100% - 3 * #{$gutter-horizontal}) / 4);
+    }
+
+    .col-2-of-4 {
+        width: calc((100% - #{$gutter-horizontal}) / 2);
+    }
+
+    .col-3-of-4 {
+        width: calc((300% - #{$gutter-horizontal}) / 4);
+    }
+
+}

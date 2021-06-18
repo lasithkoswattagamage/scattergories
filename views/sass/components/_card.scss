@@ -1,0 +1,159 @@
+.card {
+    //Functionality
+    perspective: 150rem;
+    -moz-perspective: 150rem;
+    position: relative;
+    height: 48rem;
+    
+
+    &__side {
+        height: 100%;
+        transition: all .8s ease;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        backface-visibility: hidden;
+        border-radius: 0.3rem;
+        overflow:hidden;
+        box-shadow: 0 1.5rem 4rem rgba($color-black,0.1);
+
+        &--front {
+            background-color: $color-white
+
+        }
+
+        &--back {
+            // Side back is pre rotated. Just like the back of a piece of paper is pre-rotated with
+            // respect to the front page
+            transform: rotateY(180deg);
+
+            &-1 {
+                background-image: linear-gradient(to right bottom, $color-secondary-light, $color-secondary-dark);
+                // For linear gradients - use background-image not background-color
+            }
+
+            &-2 {
+                background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark);
+                // For linear gradients - use background-image not background-color
+            }
+
+            &-3 {
+                background-image: linear-gradient(to right bottom, $color-tertiary-light, $color-tertiary-dark);
+                // For linear gradients - use background-image not background-color
+            }
+        }
+    }
+
+
+    &:hover &__side--front {
+        transform: rotateY(-180deg);
+    }
+
+    &:hover &__side--back {
+        transform: rotateY(0);
+    }
+
+    // Fronts-side styling
+    &__picture {
+        background-size: cover;
+        // Cannot get background-image to automatically scale with container width
+        height: 23rem;
+        background-blend-mode: screen;
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+
+        &--1 {
+            // image from unsplash
+            background-image: linear-gradient(to right bottom, rgba($color-secondary-light,0.9), rgba($color-secondary-dark,0.9)), url(../img/nat-5.jpg);
+
+        }
+
+        &--2 {
+            // image from unsplash
+            background-image: linear-gradient(to right bottom, rgba($color-primary-light,0.9), rgba($color-primary-dark,0.9)), url(../img/nat-6.jpg);
+        }
+        
+        &--3 {
+            // image from unsplash
+            background-image: linear-gradient(to right bottom, rgba($color-tertiary-light,0.9), rgba($color-tertiary-dark,0.9)), url(../img/nat-7.jpg);;
+        }
+    }
+
+    &__heading {
+        font-size: 2.8rem;
+        font-weight: 300;
+        text-transform: uppercase;
+        color: $color-white;
+        text-align: right;
+        // background-color: red;
+        position: absolute;
+        top: 12rem;
+        right: 2rem;
+        width: 75%;
+
+    }
+
+    &__heading-span {
+        padding: 1rem 1.5rem;
+        // Clones the padding across multiple lines. Otherwise padding will only be applied
+        // at the start of the span and at the end of the span
+        -webkit-box-decoration-break: clone;
+        box-decoration-break: clone;
+
+        &--1 {
+            background-image: linear-gradient(to right bottom, rgba($color-secondary-light, 0.85),rgba($color-secondary-dark,0.85));
+        }
+
+        &--2 {
+            background-image: linear-gradient(to right bottom, rgba($color-primary-light, 0.85),rgba($color-primary-dark,0.85));
+        }
+
+        &--3 {
+            background-image: linear-gradient(to right bottom, rgba($color-tertiary-light, 0.85),rgba($color-tertiary-dark,0.85));
+        }
+    }
+
+    &__details {
+
+        ul {
+            list-style: none;
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        li {
+            text-align: center;
+            font-size: 1.5rem;
+            padding: 1rem;
+
+            &:not(:last-child) {
+                border-bottom: 0.2rem $color-grey-light-2 solid;
+            }
+        }
+    }
+
+    &__cta {
+        // margin: auto 0 cannot be used for vertical alignment
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+    }
+
+    &__price-box {
+        color: $color-white;
+        margin-bottom: 8rem;
+    }
+
+    &__price-only {
+        font-size: 1.4rem;
+    }
+
+    &__price-value {
+        font-size: 6rem;
+        font-weight: 200;
+    }
+
+}

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Scattergories</title>
+    <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <meta charset="UTF-8">
+    <!-- Responsive Content -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    
+    <!-- Roboto Font -->
+    <!-- href => Font Link -->
+    <!-- rel => stylesheet -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&display=swap" rel="stylesheet">
+
+    <link href="css/icon-fonts.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet" >
+    <link href="img/favicon.png" rel="shortcut icon" type="image/png">
+  </head>
+  <body>
+    <main>
+            <div class="login" style="display: block">
+                <div class="login__well">
+                    <h1 class="heading-primary">Scattegories</h1>
+                    <div class="login__join" id="join">
+                        <form class="login__form-join">
+                            <div class="login__group">
+                                <input type="text" name="name_join" id="name_join" class="login__input" maxlength="12" placeholder="Name" required autocomplete="off">
+                                <label for="name_join" class="login__label">Name</label>
+                            </div>
+                            <div class="login__group u-margin-bottom-small">
+                                <input type="text" name="room_join" id="room_join" class="login__input" placeholder="Room Name" required autocomplete="off">
+                                <label for="room_join" class="login__label">Room Name</label>
+                            </div>
+                            <div class="login__group u-margin-bottom-small">
+                                <button class="login__button login__button--orange" type="submit">Join</a>
+                            </div>
+                            <div class="login__group">
+                                <a href="/#" class="login__button login__button--blue">Back</a>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="login__create" id="create">
+                        <form class="login__form-create">
+                            <div class="login__group">
+                                <input type="text" name="name_create" id="name_create" class="login__input" maxlength="12" placeholder="Name" required autocomplete="off">
+                                <label for="name_create" class="login__label">Name</label>
+                            </div>
+                            <div class="login__group u-margin-bottom-small" style="display: none;">
+                                <input type="text" name="room_create" id="room_create" class="login__input" placeholder="Room Name" disabled>
+                                <label for="room_create" class="login__label">Room Name</label>
+                            </div>
+                            <div class="login__group u-margin-bottom-small">
+                                <button type="submit" class="login__button login__button--orange">Join</button>
+                            </div>
+                            <div class="login__group">
+                                <a href="/#" class="login__button login__button--blue">Back</a>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="login__create-join">
+                        <div class="login__group u-margin-bottom-small">
+                            <a class="login__button login__button--orange login__button-create">Create Game</a>
+                        </div>
+                        <div class="login__group">
+                            <a href="/#join" class="login__button login__button--blue">Join Game</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="lobby" style="display: none">
+                <div class="lobby--js">
+                    <div class="lobby__ladder-container" style="display: none;">
+                        <h1 class="lobby__header">Lobby</h1>
+                        <h1 class="lobby__header--sub"></h1>
+                        <div class="lobby__ladder--js">
+                        </div>
+                    </div>
+                    
+                    <div class="lobby__settings-container" style="display: none;">
+                        <h1 class="lobby__header">Settings</h1>
+                        <form class="lobby__settings-form" method="post">
+                            <div class="login__group">
+                                <input type="number" name="lobby_rounds" id="lobby_rounds" class="login__input" placeholder="Number of Rounds" required autocomplete="off" value="11">
+                                <label for="lobby_rounds" class="login__label">Number of Rounds</label>
+                            </div>
+                            <div class="login__group">
+                                <input type="number" name="lobby_time" id="lobby_time" class="login__input" placeholder="Round Time (secs)" required autocomplete="off" value="30">
+                                <label for="lobby_time" class="login__label">Round Time (secs)</label>
+                            </div>
+                            <div class="lobby__room-code">
+                                <span class="lobby__room-code--sub u.noselect">Room Code:</span>
+                                <span class="lobby__room-code--primary">ABCDEF</span>
+                            </div>
+                            <div class="lobby__group u-margin-bottom-small">
+                                <button class="lobby__button login__button--orange" type="submit">Start Game</a>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="play__h-progressBar" style="display: none" id="lobby__bar-container">
+                        <div class="play__h-progressBar-bar" id="lobby__bar"></div>
+                    </div>
+                </div>
+            </div>
+
+
+            </div>
+            <div class="play" style="display: none">
+                <div class="play--js">
+                    <div class="play__gameInfo">
+                        <div class="play__letter-container">
+                            <span class="play__header--primary">A</span>
+                        </div>
+                        <div class="play__categories-container">
+                            <span class="play__header--secondary"></span>
+                            <span class="play__header--secondary"></span>
+                            <span class="play__header--secondary"></span>
+                            <span class="play__header--secondary"></span>
+                        </div>
+                    </div>
+                    <div class="play__v-progressBar">
+                        <div class="play__v-progressBar-bar"></div>
+                    </div>
+                    <div class="play__answers">
+                        <h1 class="lobby__header play__header-answers">Answers</h1>
+                        <div class="play__answers-container">
+                            <div class="play__group">
+                                <input type="text" name="lobby_rounds" id="play_input--1" class="play__input" placeholder="" autocomplete="off" required>
+                                <label for="play_input--1" class="play__label"></label>
+                            </div>
+                            <div class="play__group">
+                                <input type="text" name="lobby_rounds" id="play_input--2" class="play__input" placeholder="" autocomplete="off" required>
+                                <label for="play_input--2" class="play__label"></label>
+                            </div>
+                            <div class="play__group">
+                                <input type="text" name="lobby_rounds" id="play_input--3" class="play__input" placeholder="" autocomplete="off" required>
+                                <label for="play_input--3" class="play__label"></label>
+                            </div>
+                            <div class="play__group">
+                                <input type="text" name="lobby_rounds" id="play_input--4" class="play__input" placeholder="" autocomplete="off" required>
+                                <label for="play_input--4" class="play__label"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="play__h-progressBar" style="display: none" id="play__bar-container">
+                    <div class="play__h-progressBar-bar" id="play__bar"></div>
+                </div>
+            </div>
+            <div class="decide" style="display:none">
+                <div class="decide--js">
+                        <form id="decide__form" name="decide__form" method="post" class="decide__answers-container">
+
+                        </form>
+                    <!-- Set Display to Flex to Enable-->
+                    <div class="decide__options-container" style="display: none;">
+                        <h1 class="decide__header decide__header--decide">Decide</h1>
+                        <form class="decide__settings-form" method="post">
+                            <div class="decide__radio-group decide__radio-group--unique">
+                                <input type="radio" class="decide__option" name="decide-option" value="unique" id="decide__radio--unique" checked>
+                                <label class="decide__label" for="decide__radio--unique">
+                                    <div class="decide__radio--button"></div>
+                                    <span class="decide__radio--text">Unique</span>
+                                </label>
+                            </div>
+                            <div class="decide__radio-group decide__radio-group--same">
+                                <input type="radio" class="decide__option" name="decide-option" id="decide__radio--same" value="same">
+                                <label class="decide__label" for="decide__radio--same">
+                                    <div class="decide__radio--button"></div>
+                                    <span class="decide__radio--text">Same</span>
+                                </label>
+                            </div>
+                            <div class="decide__radio-group decide__radio-group--incorrect">
+                                <input type="radio" class="decide__option" name="decide-option" id="decide__radio--incorrect" value="incorrect">
+                                <label class="decide__label" for="decide__radio--incorrect">
+                                    <div class="decide__radio--button"></div>
+                                    <span class="decide__radio--text">Incorrect</span>
+                                </label>
+                            </div>
+                        </form>
+                        <div class="decide__submit--button decide__options-submit">
+                            <button class="decide__finalise login__button login__button--orange">Confirm</a>
+                        </div>
+                    </div>
+                    <!-- Set Display to Flex to Enable-->
+                    <div class="decide__options-wait" style="display: none;">
+                        <h1 class="decide__header decide__header--wait">Please Wait While Your Responses are Graded...</h1>
+                        <div class="lds-facebook"><div></div><div></div><div></div></div>
+                    </div>
+                </div>
+
+            </div>
+    </main>
+  </body>
+</html>
+<script src="scripts/script.js"></script>
