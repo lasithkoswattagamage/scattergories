@@ -1,0 +1,263 @@
+.play {
+    height: auto;
+    // position: relative;
+
+    &__well {
+        height: calc(100vh - 2 * #{$padding-width-height});
+        position: relative;
+
+        border-right: none;
+    }
+
+    &__row {
+        &--primary {
+            height: 65%;
+            position: relative;
+        }
+
+        &--secondary {
+            height: calc(35% - 8rem);
+            
+            & .col-1-of-4 {
+                position: relative;
+                height: 100%;
+                text-align: center;
+            }
+            
+        }
+    }
+    
+    &__header {
+
+        &--primary {
+            font-size: 40rem;
+            font-weight: 500;
+            line-height: 1em;
+            text-transform: uppercase;
+    
+            background-image: linear-gradient(to right, $color-secondary-light, $color-secondary-dark);
+            -webkit-background-clip: text;
+            color: transparent;
+
+        }
+
+        &--secondary {
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 100%;
+            text-transform: capitalize;
+            color: lighten($color-grey-dark-3,10%);
+
+            padding: 2rem;
+            flex: 1 0;
+        }
+        
+    }
+
+    &__input {
+        font-size: 1.5rem;
+        // All font elements automatically inherit the default font from the universal selector
+        // except inputs. Therefore you have to set the font-family to inherit
+        font-family: inherit;
+        // Same thing applies to color. Must force it to inherit colour
+
+        display: block;
+        width: 100%;
+        padding: 1.5rem 1.5rem;
+        border-radius: 5rem 5rem 5rem 5rem;
+        border: 0.1rem $color-grey-dark-4 solid;
+        transition: all .15s;
+        backface-visibility: hidden;
+
+        &:focus {
+            outline: none;
+            padding: 1.39rem 1.5rem;
+            border-bottom: 0.4rem solid $color-primary-dark;
+            border-radius: 2.5rem 2.5rem 0rem 0rem;
+        }
+
+        &:focus:invalid  {
+            border-bottom: 4px solid red;
+        }
+
+        &::placeholder {
+            // Font-colour of the placeholder font
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: lighten($color-grey-dark-2,10%);
+            text-transform: capitalize;
+        }
+
+    }
+
+
+    &__group {
+        &:not(:last-child) {
+            margin-bottom: 1.7rem;
+        }
+    }
+
+    &__label {
+        display: block;
+        position: relative;
+        font-size: 1.5rem;
+        font-weight: 500;
+        text-transform: capitalize;
+        color: $color-grey-dark-2;
+        padding-left: 1.5rem;
+        opacity: 1;
+        z-index: -1;
+        transition: all .2s ease;
+    }
+    
+    &--js {
+        min-height: calc(100vh - 2 * #{$padding-width-height});
+        display: flex;
+        flex-direction: row;
+    }
+
+    &__categories-container {
+        flex: 1 0;
+        display: flex;
+        align-items: center;
+    }
+
+    &__letter-container {
+        display: flex;
+        flex: 0 0 100%;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__answers-container {
+        padding: 2rem;
+    }
+
+    &__gameInfo {
+        flex: 0 0 70%;
+        display: flex;
+        flex-wrap: wrap;
+        text-align: center;
+    }
+
+    &__v-progressBar {
+        flex: 0 0 0.7rem;
+        background-color: $color-tertiary-light;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        &-bar {
+            flex: 0 0 100%;
+            background-color: $color-secondary-light;
+        }
+    }
+
+    &__h-progressBar {
+        position: absolute;
+        top: 0;
+        left: 0%;
+        height: 0.9rem;
+        width: 100%;
+        background-color: $color-tertiary-light;
+
+        display: flex;
+        justify-content: center;
+
+        &-bar {
+            flex: 0 0 100%;
+            background-color: $color-secondary-light;
+        }
+    }
+
+    &__answers {
+        flex: 1 0;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    @include respond(tab-land) {
+        &__categories-container {
+            flex-direction: column;
+        }
+        &__header {
+
+            &--primary {
+                font-size: 35rem;
+    
+            }
+    
+            &--secondary {
+                font-size: 4rem;
+    
+                padding: 1rem;
+            }
+            
+        }
+
+    }
+
+    @include respond(tab-port) {
+        &__gameInfo {
+            flex: 0 0 60%;
+        }
+
+        &--js {
+            min-height: calc(100vh - 2 * #{$padding-small});
+        }
+    }
+
+    @include respond(phone) {
+        &--js {
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        &__gameInfo {
+            flex: 0 0 5rem;
+        }
+
+        &__categories-container {
+            display: none;
+        }
+
+        &__header {
+
+            &--primary {
+                font-size: 5rem;
+                padding: 1rem;
+            }
+            
+        }
+
+        &__header-answers {
+            display: none;
+        }
+
+        &__answers-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        div.play__group {
+            flex: 0 0 50%;
+            padding: 1rem;
+            margin-bottom: 0;
+        }
+
+        &__label {
+            text-align: center;
+            font-size: 1.8rem;
+            padding-left: 0;
+        }
+
+        &__v-progressBar {
+            flex-direction: row;  
+        }
+
+        &__input {
+            font-size: 1.7rem;
+        }
+
+    }
+}

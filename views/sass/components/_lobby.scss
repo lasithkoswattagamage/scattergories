@@ -1,0 +1,363 @@
+.lobby {
+    // Padding on top and bottom is 3rem
+    // position: relative;
+    height: auto;
+
+    &--js {
+        min-height: calc(100vh - 2 * #{$padding-large});
+        display:flex;
+    }
+    
+    &__well {
+        height: calc(100vh - 2 * #{$padding-width-height});
+        position: relative;
+
+        border-right: none;
+
+        .col-3-of-4 & {
+            border-right: 3px solid $color-grey-dark-4;
+        }
+    }
+
+    &__ladder {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        height: 80%;
+
+        .col-3-of-4 & {
+            width: 40%;
+        }
+
+        .col-1-of-1 & {
+            width: 30%;
+        }
+
+        &-container {
+            padding: 4rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1 0;
+        }
+
+        &--js {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+
+    &__settings {
+        height: 80%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        width: 100%;
+
+        &-container {
+            padding: 4rem;
+            flex: 0 0 30%;
+            border-left: 2px solid $color-grey-dark-4;
+        }
+    }
+
+    &__rail {
+        // Font Related
+        font-size: 1.9rem;
+        font-weight: 500;
+        color: #ffffff;
+
+        height: 5.4rem;
+        max-width: 50rem;
+        min-width: 50rem;
+        position: relative;
+
+        border-radius: 5rem;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 0.6rem 0.6rem rgba($color-black, .2);
+        transition: all .2s;
+        outline: none;
+
+        &:hover {
+            transform: translateY(-0.2rem);
+            box-shadow: 0 0.9rem 1rem rgba($color-black, .15);
+        }
+
+        &:active {
+            transform: translateY(0.2rem);
+            box-shadow: 0 0.6rem 0.6rem rgba($color-black, .3);
+        }
+        
+
+
+
+        &:not(:last-child) {
+            margin-bottom: 2rem;
+        }
+
+        &--name {
+            display: inline-block;
+            width: 80%;
+            text-align: center;
+            float: left;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+            
+            padding-left: 2rem;
+            /* text-overflow: ellipsis; */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        &--score {
+            display: inline-block;
+            width: 20%;
+            text-align: center;
+            float: left;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);    
+        }
+
+        &--1 {
+            background: #8e2de2; /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #8e2de2, #4a00e0); /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #8e2de2, #4a00e0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+
+        &--2 {
+            background: #f12711;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #f5af19, #f12711);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #f5af19, #f12711); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */   
+        }
+
+        &--3 {
+            background: #f953c6;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #f953c6, #b91d73);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #f953c6, #b91d73); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+
+        &--4 {
+            background: #159957;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #25b46c, #2264a5);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #25b46c, #2264a5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+
+        &--5 {
+            background: #56ab2f;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #a8e063, #56ab2f);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #a8e063, #56ab2f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+
+        &--6 {
+            background: #FFE000;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #FFE000, rgb(159, 149, 12));  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #FFE000, rgb(159, 149, 12)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+
+        &--7 {
+            background: #ED213A;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #ED213A, #93291E, );  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #ED213A, #93291E ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+
+        &--8 {
+            background: #7F7FD5;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+        
+        &--9 {
+            background: #FF0099;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #493240, #FF0099);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #493240, #FF0099); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */            
+        }
+
+        &--10 {
+            background: #22c1c3;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #fdbb2d, #22c1c3);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #fdbb2d, #22c1c3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */            
+        }
+
+        &--11 {
+            background: #000046;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #1CB5E0, #000046);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #1CB5E0, #000046); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */            
+        }
+
+        &--12 {
+            background: #A770EF;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #FDB99B, #CF8BF3, #A770EF);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #FDB99B, #CF8BF3, #A770EF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */            
+        }
+
+        &--13 {
+            background: #de6161;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #2657eb, #de6161);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #2657eb, #de6161); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */            
+        }
+
+        &--14 {
+            background: #16BFFD;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #CB3066, #16BFFD);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #CB3066, #16BFFD); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */            
+        }
+
+        &--15 {
+            background: #000000;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */            
+        }
+    }
+
+    &__header {
+        font-size: 6rem;
+        text-align: center;
+
+        &--sub {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 500;
+            line-height: 1em;
+            margin-bottom: 1.5rem;
+        }
+
+        @include respond(tab-land) {
+            font-size: 4rem;
+        }
+    }
+
+    &__group {
+        bottom: 1rem;
+        width: 100%;
+    }
+
+    &__room-code {
+        color: lighten($color-grey-dark-3,10%);
+        text-align: center;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+
+        &--sub {
+            font-size: 2rem;
+            font-weight: 500;
+        }
+
+        &--primary {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 120%;
+        }
+    }
+
+    &__button {
+        // All font elements automatically inherit the default font from the universal selector
+        // except inputs. Therefore you have to set the font-family to inherit
+        font-family: inherit;
+        font-size: 1.9rem;
+        font-weight: 500;
+        color: $color-white;
+        text-decoration: none;
+        text-align: center;
+
+        // Same thing applies to color. Must force it to inherit colour
+        display: inline-block;
+        width: 100%;
+        padding: 1rem 2rem;
+        border-radius: 5rem;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 0.6rem 0.6rem rgba($color-black, .25);
+        transition: all .2s;
+        outline: none;
+
+        &:hover {
+            transform: translateY(-0.2rem);
+            box-shadow: 0 0.9rem 1rem rgba($color-black, .2);
+        }
+
+        &:active {
+            transform: translateY(0.2rem);
+            box-shadow: 0 0.6rem 0.6rem rgba($color-black, .35);
+        }
+        
+        &--orange {
+            background-image: linear-gradient(to right bottom, $color-secondary-light, $color-secondary-dark);
+        }
+
+        &--blue {
+            background-image: linear-gradient(to right bottom, $color-tertiary-light, $color-tertiary-dark);
+        }
+        
+    }
+
+    button.lobby__button {
+        padding: 1.45rem 2rem;
+    }
+
+    @include respond(tab-port) {
+        &--js {
+            flex-direction: column;
+            min-height: calc(100vh - 2 * #{$padding-small});
+        }
+
+        &__rail {
+            height: 5.4rem;
+        }
+
+        &__ladder {
+            &-container {
+                padding: 2rem;
+                flex: 1 0;
+                border-right: none;
+            }
+        }
+
+        &__settings {
+            &-container {
+                order: -1;
+                padding: 2rem;
+                padding-bottom: 4rem;
+                border-left: none;
+                border-bottom: 2px solid $color-grey-dark-4;
+            }
+
+            &-form {
+                margin: auto;
+                width: 70%;
+            }
+        }
+
+
+    }
+
+    @include respond(phone) {
+
+        &--js {
+            min-height: 100vh;
+        }
+        
+        &__rail {
+            height: 5.4rem;
+            min-width: 100%;
+        }
+
+        &__settings {
+            &-form {
+                margin: auto;
+                width: 100%;
+            }
+        }
+
+        &__room-code {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+    }
+}

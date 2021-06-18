@@ -1,0 +1,164 @@
+.navigation {
+
+    &__checkbox {
+        display: none;
+    }
+    
+    &__button {
+        background-color: $color-white;
+        height: 6rem;
+        width: 6rem;
+        position: fixed;
+        top: 6rem;
+        right: 6rem;
+        display: block;
+        border-radius: 50%;
+        z-index: 1002;
+        cursor: pointer;
+        box-shadow: 0 0.5rem 3rem rgba($color-black, 0.1);
+        
+    }
+
+    &__background {
+        height: 5rem;
+        width: 5rem;
+        border-radius: 50%;
+        background-color: green;
+        position: fixed;
+        top: 6.5rem;
+        right: 6.5rem;
+        background-image: radial-gradient($color-primary-light, $color-primary-dark);
+        z-index: 1000;
+        transition: all .7s cubic-bezier(0.86, 0, 0.07, 1);
+        
+    }
+
+
+
+    &__nav {
+        height: 100vh;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 1001;
+        opacity: 0;
+        pointer-events: none;
+        transition: all .6s cubic-bezier(0.86, 0, 0.07, 1);
+    }
+
+    &__list {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        list-style: none;
+        text-align: center;
+    }
+
+    &__item {
+        margin: 1rem;
+    }
+
+    &__link {
+        &:link,
+        &:visited {
+            display: inline-block;
+            font-size: 3rem;
+            padding: 1rem 2rem;
+            font-weight: 300;
+            color: $color-white;
+            text-transform: uppercase;
+            text-decoration: none;
+            background-image: linear-gradient(120deg, transparent 0%, transparent 50%, $color-white 50%);
+            // Sliding effect
+            background-size: 230%;
+            transition: all .4s;
+
+            span {
+                margin-right: 1.5rem;
+            }
+        }
+
+        &:hover {
+            background-position: 100%;
+            color: $color-primary-dark;
+            transform: translateX(-2rem);
+        }
+
+    }
+
+    // Icons
+    &__icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 50%);
+        // 
+
+        &,
+        &::before,
+        &::after {
+            transition: transform .7s, top .7s;
+            width: 3rem;
+            height: 2px;
+            background-color: $color-grey-dark-3;
+            display: inline-block;
+
+        }
+
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+        }
+
+        &::before {
+            top: -1rem;
+        }
+
+        &::after {
+            top: 1rem;
+        }
+    }
+
+    //Functionality
+    // Scale background radially
+    &__checkbox:checked ~ &__background {
+        transform: scale(80);
+    }
+    
+    // Renable links and make visible again
+    &__checkbox:checked ~ &__nav {
+        opacity: 1;
+        pointer-events: auto;
+    }
+    
+    // Extending hamburger icon vertically when button is hovered over
+    &__button:hover &__icon {
+        &::before {
+            top: -1.2rem;
+        }
+
+        &::after {
+            top: 1.2rem;
+        }
+    }
+
+    &__checkbox:checked + &__button &__icon {
+        // Make middle line invisible
+        background-color: transparent;
+        &::before {
+            background-color: $color-grey-dark-3;
+            transform: rotate(225deg);
+            top: 0;
+        }
+
+        &::after {
+            background-color: $color-grey-dark-3;
+            transform: rotate(-225deg);
+            top: 0;
+        }
+    }
+
+}

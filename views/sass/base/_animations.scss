@@ -1,0 +1,59 @@
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(120deg);
+    }
+}
+
+@keyframes moveinleft {
+    0% {
+        opacity: 0;
+        transform: translateX(-10rem);
+    }
+    70% {
+        transform: translateX(1rem);
+    }
+    100% {
+        opacity: 100;
+        transform: translate(0);
+    }
+
+}
+
+@keyframes moveinright {
+    0% {
+        opacity: 0;
+        transform: translateX(10rem);
+    }
+    70% {
+        transform: translateX(-1rem);
+        /* transform: translateX(-1rem) rotate(0); */
+    }
+    100% {
+        opacity: 100;
+        transform: translate(0);
+    }
+
+}
+
+@keyframes moveInBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(3rem);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+
+@keyframes progressBarGreenRed {
+    100% {
+        opacity: 0;
+    }
+    
+}

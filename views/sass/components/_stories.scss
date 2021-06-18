@@ -1,0 +1,69 @@
+.story {
+    width: 75%;
+    margin: 0 auto;
+    box-shadow: 0 3rem 6rem rgba($color-black,.1);
+    background-color: rgba($color-white,0.6);
+    border-radius: 0.3rem;
+    padding: 6rem;
+    padding-left: 9rem;
+    transform: skewX(-12deg);
+
+    & > * {
+        transform: skewX(12deg);
+    }
+
+    &__shape {
+        width: 15rem;
+        height: 15rem;
+        background-color: $color-grey-dark;
+        float: left;
+        shape-outside: circle(50% at 50% 50%);
+        -webkit-shape-outside: circle(50% at 50% 50%);
+        // Shape-outisde: Element has to have predefinied width, height and flaoted
+        clip-path: circle(50% at 50% 50%);
+        -webkit-clip-path: circle(50% at 50% 50%);
+        // Negative translate will move the shape-outside to the right but will not affect
+        // the position of the clip-path
+        transform: translateX(-3rem) skewX(12deg);
+        position: relative;
+    }
+
+    &__img {
+        // Image is inside of block element with well-defined width
+        height: 100%;
+        transform: translateX(-17%);
+        transition: all .5s;
+        backface-visibility: hidden;
+    }
+
+    &__text {
+
+    }
+
+    &__caption {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,20%);
+        color: $color-white;
+        text-transform: uppercase;
+        font-size: 1.6rem;
+        text-align: center;
+        width: 100%;
+        padding: 2rem;
+        opacity: 0;
+        transition: all .5s;
+        backface-visibility: hidden;
+
+    }
+
+    &:hover &__caption {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+
+    &:hover &__img {
+        transform: translateX(-17%) scale(1.2);
+        filter: blur(3px) brightness(75%);
+    }
+}

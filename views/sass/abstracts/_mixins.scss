@@ -1,0 +1,30 @@
+@mixin clearfix {
+    &::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+}
+
+/*
+$breakpoint argument choices
+- phone
+- tab-port
+- tab-land
+- big-desktop
+1 em = 16px
+We would like media queries to adapt to the default font size specified by user. Unfortunately rem is buggy
+so we use em for best compatibility
+*/
+
+@mixin respond($breakpoint) {
+    @if $breakpoint == phone {
+            @media (max-width: 37.5em) {@content}; // 600px/16 = 37.5em
+    } @else if $breakpoint == tab-port {
+            @media (max-width: 56.25em) {@content};  // 900px/16 = 56.25em      
+    } @else if $breakpoint == tab-land {
+            @media (max-width: 75em) {@content};    // 1200px/16 = 75em
+    } @else if $breakpoint == big-desktop {
+            @media (min-width: 112.5em) {@content}; // 1800px/16 = 112.5em
+    }
+}

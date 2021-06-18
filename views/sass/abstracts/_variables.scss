@@ -1,0 +1,38 @@
+$color-primary: #7ed56f;
+$color-primary-light: #55c57a;
+$color-primary-dark: #28b485;
+
+$color-grey-dark: #777;
+$color-grey-light-1: #f7f7f7;
+$color-grey-light-2: #eee;
+$color-grey-dark-2: #999;
+$color-grey-dark-3: #333;
+$color-grey-dark-4: rgba(169, 169, 169, 0.271);
+
+$color-white: #ffffff;
+$color-black: #000;
+
+$color-secondary-light: #ffb900;
+$color-secondary-dark: #ff7730;
+
+$color-tertiary-light: #2998ff;
+$color-tertiary-dark: #5643fa;
+
+// Variable for grid
+$grid-width: 114rem;
+$gutter-vertical: 8rem;
+$gutter-horizontal: 6rem;
+
+$padding-large: 6rem;
+$padding-small: 4rem;
+
+// Font Sizes
+$default-font-size: 1.6rem;
+
+// Body-Padding Width Height
+$padding-width-height: 6rem;
+
+// Decide Page Colors
+$color-decide-unique : #28b485;
+$color-decide-same : #ffb900;
+$color-decide-incorrect : red;

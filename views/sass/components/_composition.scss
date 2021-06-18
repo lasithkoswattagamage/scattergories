@@ -1,0 +1,39 @@
+.composition {
+    position: relative;
+
+    &__photo {
+        width: 55%;
+        box-shadow: 0 1.5rem 4rem rgba($color-black, .4);
+        position: absolute;
+        transition: all 0.5s ease;
+        outline-offset: 1.5rem;
+        // padding: 2rem;
+
+        &--p1 {
+            left: 0;
+            top: -2rem;
+        }
+
+        &--p2 {
+            right: 0;
+            top: 2rem;
+        }
+
+        &--p3 {
+            left: 20%;
+            top: 10rem;
+        }
+
+        &:hover {
+            outline: 1.5rem solid rgba($color-primary-dark,0.7);
+            transform: scale(1.05);
+            box-shadow: 0 2rem 4rem rgba($color-black, .6);
+            // Increase v-offset and make a darker color to make it seem as if the pictures are moving towards us
+            z-index: 20;
+        }  
+    }
+
+    &:hover &__photo:not(:hover) {
+        transform: scale(0.95);
+    }
+}

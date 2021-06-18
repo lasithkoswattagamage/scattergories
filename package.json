@@ -1,0 +1,22 @@
+{
+  "name": "scattergories",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "compile:sass": "node-sass views/sass/main.scss views/css/style.css -w"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "assert": "^2.0.0",
+    "body-parser": "^1.19.0",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "mongodb": "^3.5.2",
+    "node-sass": "^4.14.1",
+    "randomstring": "^1.1.5",
+    "socket.io": "^2.3.0"
+  }
+}
