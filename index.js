@@ -741,7 +741,7 @@ function mongo_fetchRoundCount(roomCode,callback) {
 ////////////////////////
 //MONGO FUNCTIONS END
 ////////////////////////
-var server_port = process.env.PORT || 80;
+var server_port = process.env.PORT || 3000;
 var server_host = process.env.YOUR_HOST || '0.0.0.0';
 
 const server = http.listen(server_port, function() {
