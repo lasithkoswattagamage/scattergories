@@ -18,7 +18,7 @@ var util = require("./components/util");
 //console.log(gradient.get());
 
 //var url = "mongodb://scattergories:5e9ki65dia7l237cl5re9eostn@ds063177.mlab.com:63177/scattergories";
-var url = "mongodb://127.0.0.1:27017";
+var url = `mongodb://${process.env.MONGO_INITDB_USERNAME}:${process.env.MONGO_INITDB_PASSWORD}@mongo:27017`;
 // Wait time between priming the Play State and then players seeing all the data is 3 seconds (3000 ms)
 // We do not want the user to immediately expect answers after they decide as this may make them feel uncomfortable
 // with the speed of the game. I have allocated 3 secs of priming time for user
