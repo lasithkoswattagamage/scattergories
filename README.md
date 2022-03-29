@@ -1,1 +1,19 @@
-# scattergories
+# Scattergories
+
+## Local Development
+
+`.env.test` contains default values for various Mongo related environmental variables.
+Change accordingly for development and production environments
+
+```
+# Run Locally
+docker compose --env-file .env.test up
+
+# Rebuild
+#   --renew-anon-volumes neccessary if any adjustments are made to the
+#   mongo config options
+docker compose --env-file .env.test up --force-recreate --renew-anon-volumes
+
+# Deprovisioning
+docker compose down
+```
