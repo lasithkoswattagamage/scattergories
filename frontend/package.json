@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "compile:sass": "node-sass public/sass/main.scss public/css/style.css",
-    "watch:sass": "npm run compile:sass && npm run compile:sass -- -w",
+    "compile:sass": "sass public/sass/main.scss:public/css/style.min.css --style compressed",
+    "watch:sass": "sass --watch public/sass/main.scss:public/css/style.min.css --style compressed",
     "start": "npm run compile:sass && node index.js",
     "dev": "npm run watch:sass & nodemon index.js"
   },
@@ -17,9 +17,9 @@
     "ejs": "^3.0.1",
     "express": "^4.17.1",
     "mongodb": "^3.5.2",
-    "node-sass": "^7.0.1",
     "randomstring": "^1.1.5",
-    "socket.io": "^2.4.1"
+    "socket.io": "^2.4.1",
+    "sass": "^1.49.9"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"

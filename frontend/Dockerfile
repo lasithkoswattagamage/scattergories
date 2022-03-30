@@ -8,7 +8,6 @@ RUN adduser -S -D -g appuser -h /usr/app appuser
 FROM base as dependencies
 WORKDIR /tmp/
 COPY package*.json .
-RUN apk add --no-cache python3 make g++
 RUN npm ci
 
 FROM base as server
