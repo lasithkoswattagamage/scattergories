@@ -2,7 +2,7 @@
 
 ## Live Deployment
 
-Visit a live deployment of this application at [scattergories.lasithkg.au](http://scattergories.lasithkg.au)
+Visit a live version of this application at [scattergories.lasithkg.au](http://scattergories.lasithkg.au)
 
 ## Local Development
 
