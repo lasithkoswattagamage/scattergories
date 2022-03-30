@@ -1,9 +1,13 @@
 # Scattergories
 
+## Live Deployment
+
+Visit a live deployment of this application at [scattergories.lasithkg.au](http://scattergories.lasithkg.au)
+
 ## Local Development
 
 `.env.test` contains default values for various Mongo related environmental variables.
-Change accordingly for development and production environments
+Change accordingly for production environments (`.env`)
 
 ```
 # Run Locally
