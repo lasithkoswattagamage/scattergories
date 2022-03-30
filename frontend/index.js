@@ -25,10 +25,7 @@ const waitTimeLobbyPlay = 3000;
 const waitTimeLobbyInGame = 5000;
 const playerLimit = 15;
 
-// Setting Render Engine
-app.set("view engine", "ejs");
-
-// // Middleware Software (POST)
+// Middleware Software (POST)
 app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(
   bodyParser.urlencoded({
@@ -39,11 +36,7 @@ app.use(
 app.use(express.json()); // to support JSON-encoded bodies
 app.use(express.urlencoded()); // to support URL-encoded bodies
 
-app.use("/", express.static("views")); // Create static directory for the css files
-
-app.get("/", function (req, res) {
-  res.render("index.ejs");
-});
+app.use("/", express.static("public")); // Create static directory for the css files
 
 app.get("/get-data", function (req, res, next) {
   var resultArray = [];
