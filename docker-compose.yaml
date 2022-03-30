@@ -6,7 +6,7 @@ services:
     build:
       context: ./frontend
     ports:
-      - 3000:3000
+      - ${FRONTEND_PORT}:3000
     environment:
       MONGO_INITDB_USERNAME: ${MONGO_INITDB_USERNAME}
       MONGO_INITDB_PASSWORD: ${MONGO_INITDB_PASSWORD}
