@@ -8,14 +8,7 @@ const io = require("socket.io")(http, {
 var bodyParser = require("body-parser");
 var mongo = require("mongodb");
 var assert = require("assert");
-var roomCode = require("./components/roomCode");
-var gradient = require("./components/gradient");
-var util = require("./components/util");
-
-// Way to access socketID externally
-// io.sockets.sockets["Sv92ZNxGMlin4OSBAAAD"]
-
-//console.log(gradient.get());
+var roomCode = require("./lib/room-code");
 
 var url = `mongodb://${process.env.MONGO_INITDB_USERNAME}:${process.env.MONGO_INITDB_PASSWORD}@mongo:27017`;
 // Wait time between priming the Play State and then players seeing all the data is 3 seconds (3000 ms)
@@ -126,7 +119,7 @@ io.on("connect", function (socket) {
       //console.log(rooms); // [ <socket.id>, 'room 237' ]
       //console.log(socket.userName);
 
-      admin__mongo_createRoom(
+      admin_mongo_createRoom(
         roomCode,
         { role, userName, socketID },
         function () {
@@ -144,7 +137,7 @@ io.on("connect", function (socket) {
     if (!socket.roomCode) {
       roomCode = data.roomCode;
     }
-    mongo__isRoomInLobby(roomCode, function (inLobby) {
+    util_isRoomInLobby(roomCode, function (inLobby) {
       if (inLobby) {
         callback(null, "Room Exists");
       } else {
@@ -191,14 +184,14 @@ io.on("connect", function (socket) {
     let socketRole = socket.role;
 
     // A user may not have entered a room so their is no need to remove their db entry (since it does not exist)
-    if (util.isdefined(typeof socketRoomCode)) {
+    if (typeof socketRoomCode !== "undefined") {
       if (socketRole === "user") {
         // LeaveRoom function for users
         user_mongo_leaveRoom(socketRoomCode, socketID, function (msg) {
           // Generate Scoreboard and send to all sockets in the room that the socket left from
-          mongo__generateScoreBoard(socketRoomCode, function (scoreboard) {
+          util_generateScoreBoard(socketRoomCode, function (scoreboard) {
             // Prevent Lobby Rebuild if game is not in lobby. This is to prevent unexpected behaviour mid game
-            mongo__isRoomInLobby(socketRoomCode, function (inLobby) {
+            util_isRoomInLobby(socketRoomCode, function (inLobby) {
               if (inLobby) {
                 io.in(socket.roomCode).emit(
                   "lobby--build",
@@ -211,11 +204,11 @@ io.on("connect", function (socket) {
         });
       } else if (socketRole === "admin") {
         // LeaveRoom function for admin
-        admin__mongo_leaveRoom(socketRoomCode, socketID, function (msg) {
+        admin_mongo_leaveRoom(socketRoomCode, socketID, function (msg) {
           // Generate Scoreboard and send to all sockets in the room that the socket left from
-          mongo__generateScoreBoard(socketRoomCode, function (scoreboard) {
+          util_generateScoreBoard(socketRoomCode, function (scoreboard) {
             // Prevent Lobby Rebuild if game is not in lobby. This is to prevent unexpected behaviour mid game
-            mongo__isRoomInLobby(socketRoomCode, function (inLobby) {
+            util_isRoomInLobby(socketRoomCode, function (inLobby) {
               if (inLobby) {
                 io.in(socket.roomCode).emit(
                   "lobby--build",
@@ -242,7 +235,7 @@ io.on("connect", function (socket) {
     // Tell Client To Build
     // Tell Everyonelse to Rebuild
     let roomCode = socket.roomCode;
-    mongo__generateScoreBoard(roomCode, function (scoreboard) {
+    util_generateScoreBoard(roomCode, function (scoreboard) {
       io.in(socket.roomCode).emit("lobby--build", scoreboard, playerLimit);
     });
   });
@@ -257,11 +250,11 @@ io.on("connect", function (socket) {
     // Update thr game rules with the ones provided by admin
 
     // Change status of game from "LOBBY" to "IN-GAME" to prevent users from joining in
-    admin__mongo_updateLobbyStatus(roomCode, "INGAME");
-    admin__mongo_updateRules(roomCode, data, () => {
+    admin_mongo_updateLobbyStatus(roomCode, "INGAME");
+    admin_mongo_updateRules(roomCode, data, () => {
       // Set Timeout for moving the player from the primed state to the actually answering state waitTimeLobbyPlay
       // Function That When Provided a Room Code will provide game Data object. Must do neccessary alterations to db
-      mongo__roundData(roomCode, function (gameData) {
+      util_roundData(roomCode, function (gameData) {
         // Must chain the following setTimeouts to ensure they are released at the same Time (as close as possible due to nature of event loop)
         // Prime The Play State immediately
         console.log(gameData);
@@ -286,13 +279,13 @@ io.on("connect", function (socket) {
     let roomCode = socket.roomCode;
     //console.log(response)
 
-    mongo__insertResponse(socketID, socketName, socket.roomCode, response).then(
+    util_insertResponse(socketID, socketName, socket.roomCode, response).then(
       (insertRes) => {
         //console.log(insertRes)
         if (insertRes) {
           // Fetch All Responses
           //console.log("All Users Have Responded")
-          mongo_fetchAllResponsesAndCategories(
+          util_fetchAllResponsesAndCategories(
             roomCode,
             function (allResponses, allCategories) {
               io.in(socket.roomCode).emit(
@@ -315,9 +308,9 @@ io.on("connect", function (socket) {
 
     // Reduce the number of rounds remaning by 1 (This does not need to placed inside the Promise.all([]))
     // This information is not relevant for the player while they are in the Play State
-    mongo_deincrementRoundCount(roomCode);
+    util_deincrementRoundCount(roomCode);
 
-    mongo_fetchAllResponsesAndCategories(roomCode, function (allResponses) {
+    util_fetchAllResponsesAndCategories(roomCode, function (allResponses) {
       //console.log(response)
       //console.log(allResponses)
       let pointsGained = {};
@@ -341,11 +334,11 @@ io.on("connect", function (socket) {
         });
       });
 
-      admin__mongo_updateScores(roomCode, pointsGained, function () {
-        mongo__generateScoreBoard(
+      admin_mongo_updateScores(roomCode, pointsGained, function () {
+        util_generateScoreBoard(
           roomCode,
           function (newScoreBoard, roundsRemaining) {
-            mongo_fetchRoundCount(roomCode, function (roundsRemaining) {
+            util_fetchRoundCount(roomCode, function (roundsRemaining) {
               // Conduct Next Round procedures if there are still rounds remaining
               if (roundsRemaining > 0) {
                 io.in(roomCode).emit(
@@ -355,7 +348,7 @@ io.on("connect", function (socket) {
                 );
                 // Set Timeout for moving the player from the primed state to the actually answering state waitTimeLobbyPlay
                 // Function That When Provided a Room Code will provide game Data object. Must do neccessary alterations to db
-                mongo__roundData(roomCode, function (gameData) {
+                util_roundData(roomCode, function (gameData) {
                   // Must chain the following setTimeouts to ensure they are released at the same Time (as close as possible due to nature of event loop)
                   setTimeout(function () {
                     io.in(socket.roomCode).emit("play--build", gameData);
@@ -368,7 +361,7 @@ io.on("connect", function (socket) {
                   }, gameData.roundTime * 1000 + waitTimeLobbyInGame);
                 });
               } else {
-                admin__mongo_updateLobbyStatus(roomCode, "FINISHED");
+                admin_mongo_updateLobbyStatus(roomCode, "FINISHED");
                 io.in(roomCode).emit("lobby--finished", newScoreBoard);
               }
             });
@@ -389,7 +382,7 @@ io.on("connect", function (socket) {
 ////////////////
 // Admin
 ////////////////
-function admin__mongo_createRoom(roomCode, userData, callback) {
+function admin_mongo_createRoom(roomCode, userData, callback) {
   //roomCode
   let userName = userData.userName;
   let userSocketID = userData.socketID;
@@ -420,14 +413,13 @@ function admin__mongo_createRoom(roomCode, userData, callback) {
     var db = client.db("scattergories");
     db.collection("gameStates").insertOne(doc, function (err, result) {
       assert.equal(null, err);
-      //console.log(result);
       client.close(); // Close connection
       callback();
     });
   });
 }
 
-function admin__mongo_leaveRoom(roomCode, socketID, callback) {
+function admin_mongo_leaveRoom(roomCode, socketID, callback) {
   // First Remove Admin Entry (via unset)
 
   mongo.connect(url, function (err, client) {
@@ -444,16 +436,13 @@ function admin__mongo_leaveRoom(roomCode, socketID, callback) {
           { _id: roomCode },
           function (err, result) {
             assert.equal(null, err);
-            // DEBUG
-            //console.log(result);
-
             // We extract the first socketID and make it the new ADMIN
             let newAdminSocketId = Object.keys(result.players)[0];
 
             // Make one random user an admin through the database
             // ~ If newAdminSocketID is not defined then all the sockets have left the room. Time to destroy
             // ~ the document corresponding to the room code from the database
-            if (util.isdefined(typeof newAdminSocketId)) {
+            if (typeof newAdminSocketId !== "undefined") {
               db.collection("gameStates").update(
                 { _id: roomCode },
                 {
@@ -491,7 +480,7 @@ function admin__mongo_leaveRoom(roomCode, socketID, callback) {
   // and through the io.sockets.sockets[socketID]
 }
 
-function admin__mongo_updateRules(roomCode, rules, callback) {
+function admin_mongo_updateRules(roomCode, rules, callback) {
   console.log(rules);
   let db_rounds = rules.numberOfRounds;
   let db_round_time = rules.roundTime;
@@ -514,7 +503,7 @@ function admin__mongo_updateRules(roomCode, rules, callback) {
   });
 }
 
-function admin__mongo_updateLobbyStatus(roomCode, status) {
+function admin_mongo_updateLobbyStatus(roomCode, status) {
   mongo.connect(url, function (err, client) {
     var db = client.db("scattergories");
     db.collection("gameStates").updateOne(
@@ -528,7 +517,7 @@ function admin__mongo_updateLobbyStatus(roomCode, status) {
   });
 }
 
-function admin__mongo_updateScores(roomCode, incObj, callback) {
+function admin_mongo_updateScores(roomCode, incObj, callback) {
   mongo.connect(url, function (err, client) {
     assert.equal(null, err);
     var db = client.db("scattergories");
@@ -601,7 +590,7 @@ function user_mongo_leaveRoom(roomCode, socketID, callback) {
 
 // After we confirm that the room exists on the server memory, we need to determine whether the room
 // is in the lobby state. This is to prevent users from joining midgame
-function mongo__isRoomInLobby(roomCode, callback) {
+function util_isRoomInLobby(roomCode, callback) {
   mongo.connect(url, function (err, client) {
     var db = client.db("scattergories");
     db.collection("gameStates").findOne(
@@ -623,7 +612,7 @@ function mongo__isRoomInLobby(roomCode, callback) {
   });
 }
 
-function mongo__generateScoreBoard(roomCode, callback) {
+function util_generateScoreBoard(roomCode, callback) {
   mongo.connect(url, function (err, client) {
     assert.equal(null, err);
     var db = client.db("scattergories");
@@ -648,9 +637,9 @@ function mongo__generateScoreBoard(roomCode, callback) {
   });
 }
 
-function mongo__roundData(roomCode, callback) {
+function util_roundData(roomCode, callback) {
   // Clear reponses and categories before fetching new ones
-  mongo_clearResponsesAndCategories(roomCode);
+  util_clearResponsesAndCategories(roomCode);
 
   let fetchRoundData = new Promise((resolve, reject) => {
     mongo.connect(url, function (err, client) {
@@ -724,7 +713,7 @@ function mongo__roundData(roomCode, callback) {
   });
 }
 
-function mongo__insertResponse(socketID, userName, roomCode, response) {
+function util_insertResponse(socketID, userName, roomCode, response) {
   return new Promise((resolve, reject) => {
     mongo.connect(url, function (err, client) {
       assert.equal(null, err);
@@ -748,7 +737,7 @@ function mongo__insertResponse(socketID, userName, roomCode, response) {
   });
 }
 
-function mongo__responseTally(socketID, roomCode) {
+function util_responseTally(socketID, roomCode) {
   return new Promise((resolve, reject) => {
     mongo.connect(url, function (err, client) {
       assert.equal(null, err);
@@ -774,7 +763,7 @@ function mongo__responseTally(socketID, roomCode) {
   });
 }
 
-function mongo_fetchAllResponsesAndCategories(roomCode, callback) {
+function util_fetchAllResponsesAndCategories(roomCode, callback) {
   mongo.connect(url, function (err, client) {
     assert.equal(null, err);
     var db = client.db("scattergories");
@@ -801,7 +790,7 @@ function mongo_fetchAllResponsesAndCategories(roomCode, callback) {
   });
 }
 
-function mongo_clearResponsesAndCategories(roomCode) {
+function util_clearResponsesAndCategories(roomCode) {
   mongo.connect(url, function (err, client) {
     assert.equal(null, err);
     var db = client.db("scattergories");
@@ -816,7 +805,7 @@ function mongo_clearResponsesAndCategories(roomCode) {
   });
 }
 
-function mongo_deincrementRoundCount(roomCode) {
+function util_deincrementRoundCount(roomCode) {
   mongo.connect(url, function (err, client) {
     assert.equal(null, err);
     var db = client.db("scattergories");
@@ -831,7 +820,7 @@ function mongo_deincrementRoundCount(roomCode) {
   });
 }
 
-function mongo_fetchRoundCount(roomCode, callback) {
+function util_fetchRoundCount(roomCode, callback) {
   mongo.connect(url, function (err, client) {
     assert.equal(null, err);
     var db = client.db("scattergories");
@@ -855,14 +844,3 @@ var server_host = process.env.YOUR_HOST || "0.0.0.0";
 const server = http.listen(server_port, function () {
   console.log("listening on *" + server_port);
 });
-
-// db.gameStates.aggregate([
-//   // Duplicate the docs, one per modules array element
-//   {$match: {_id: "IJV794"}},
-//   // Regroup on _id, summing up the size of each doc's documents array
-//   {$group: {
-//       _id: "$_id",
-//       playerCount: {$sum: {$size: {$objectToArray: '$players'}}},
-// playerResponses: {$sum: {$size: '$responses'}}
-//   }}
-// ])

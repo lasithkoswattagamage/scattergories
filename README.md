@@ -7,13 +7,22 @@ Change accordingly for development and production environments
 
 ```
 # Run Locally
-docker compose --env-file .env.test up
+docker compose \
+    --env-file .env.test \
+    -f docker-compose.test.yaml \
+    up
 
 # Rebuild
 #   --renew-anon-volumes neccessary if any adjustments are made to the
-#   mongo config options
-docker compose --env-file .env.test up --force-recreate --renew-anon-volumes
+#   mongo init script
+docker compose \
+    --env-file .env.test \
+    -f docker-compose.test.yaml \
+    up --force-recreate --renew-anon-volumes
 
 # Deprovisioning
-docker compose down
+docker compose \
+    --env-file .env.test \
+    -f docker-compose.test.yaml \
+    down
 ```

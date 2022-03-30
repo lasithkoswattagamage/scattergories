@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "dev": "nodemon index.js",
     "compile:sass": "node-sass views/sass/main.scss views/css/style.css -w"
   },
   "author": "",
@@ -18,5 +19,8 @@
     "node-sass": "^7.0.1",
     "randomstring": "^1.1.5",
     "socket.io": "^2.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
