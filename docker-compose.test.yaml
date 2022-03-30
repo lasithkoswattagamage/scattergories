@@ -10,7 +10,10 @@ services:
     environment:
       MONGO_INITDB_USERNAME: ${MONGO_INITDB_USERNAME}
       MONGO_INITDB_PASSWORD: ${MONGO_INITDB_PASSWORD}
-      NODE_ENV: production
+      NODE_ENV: test
+    volumes:
+      - ./frontend:/usr/app/src
+    command: ["npm", "run", "dev"]
   mongo:
     image: mongo:5.0.6
     restart: always
