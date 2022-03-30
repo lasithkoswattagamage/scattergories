@@ -118,3 +118,6 @@ dist
 
 # DS_Store
 .DS_Store
+
+# Ignore Compiled CSS during Commit
+frontend/public/css
