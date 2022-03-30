@@ -2,18 +2,38 @@
 
 ## Local Development
 
+### Run Locally
+
 `.env.test` contains default values for various Mongo related environmental variables.
-Change accordingly for development and production environments
+Change accordingly for production (`.env`) environments
 
 ```
-# Run Locally
-docker compose --env-file .env.test up
+docker compose \
+    --env-file .env.test \
+    -f docker-compose.test.yaml \
+    up
+```
 
+### Additional Commands
+
+```
 # Rebuild
-#   --renew-anon-volumes neccessary if any adjustments are made to the
-#   mongo config options
-docker compose --env-file .env.test up --force-recreate --renew-anon-volumes
+#   Run when a change is made to a Dockerfile built in the docker-compose file
+#   --renew-anon-volumes neccessary if any adjustments are made to the mongo init script
+docker compose \
+    --env-file .env.test \
+    -f docker-compose.test.yaml \
+    build --no-cache
+
+# Redeploy
+docker compose \
+    --env-file .env.test \
+    -f docker-compose.test.yaml \
+    up --force-recreate --renew-anon-volumes
 
 # Deprovisioning
-docker compose down
+docker compose \
+    --env-file .env.test \
+    -f docker-compose.test.yaml \
+    down
 ```
