@@ -13,10 +13,6 @@ var gradient = require("./components/gradient");
 var util = require("./components/util");
 
 // Way to access socketID externally
-// io.sockets.sockets["Sv92ZNxGMlin4OSBAAAD"]
-
-//console.log(gradient.get());
-
 var url = `mongodb://${process.env.MONGO_INITDB_USERNAME}:${process.env.MONGO_INITDB_PASSWORD}@mongo:27017`;
 // Wait time between priming the Play State and then players seeing all the data is 3 seconds (3000 ms)
 // We do not want the user to immediately expect answers after they decide as this may make them feel uncomfortable
