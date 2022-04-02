@@ -47,8 +47,10 @@ Change accordingly for production (`.env`) environments
 docker compose \
     --env-file .env.test \
     -f docker-compose.test.yaml \
-    up
+    up -d
 ```
+
+After you successfully launch all containers, visit [localhost:3000](http://localhost:3000) to access the application.
 
 ### Additional Commands
 
@@ -65,7 +67,7 @@ docker compose \
 docker compose \
     --env-file .env.test \
     -f docker-compose.test.yaml \
-    up --force-recreate --renew-anon-volumes
+    up --force-recreate --renew-anon-volumes -d
 
 # Deprovisioning
 docker compose \
