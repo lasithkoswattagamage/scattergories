@@ -1,5 +1,11 @@
 # Scattergories
 
+## Live Deployment
+
+You can view a live version of this application at [https://scattergories.lasithkg.au](https://scattergories.lasithkg.au)
+
+## Description
+
 An online reimagining of the cult classic Scattergories game by Hasbro. This projects was originally intended as a way to play Scattergories, over the internet, with my mates during COVID.
 
 The responsive CSS queries, the UI can respond to a multitude of devices so your friends can have the same great experience across mobile, tablet and laptop.
@@ -16,7 +22,7 @@ The entire application has been dockerised so that it can be seemlessly deployed
 - JQuery
 - Socket.io Client Library
 
-## Builders
+### Builders
 
 - Dart Sass (CSS Preprocessor)
 
@@ -29,10 +35,6 @@ The entire application has been dockerised so that it can be seemlessly deployed
 ### Deployment
 
 - Docker
-
-## Live Deployment
-
-You can view a live version of this application at [https://scattergories.lasithkg.au](https://scattergories.lasithkg.au)
 
 ## Local Development
 
