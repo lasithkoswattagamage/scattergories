@@ -6,7 +6,7 @@ The responsive CSS queries, the UI can respond to a multitude of devices so your
 
 The entire application has been dockerised so that it can be seemlessly deployed using the `docker-compose` CLI tool
 
-<img style="width: 40%; height: auto" src="assets/Showcase.png">
+<img style="width: 60%; height: auto" src="assets/Showcase.png">
 
 ## Technology Stack
 
