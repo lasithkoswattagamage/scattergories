@@ -2,7 +2,7 @@
 
 ## Live Site
 
-You can view a live version of this application at [https://scattergories.lasithkg.au](https://scattergories.lasithkg.au)
+You can view a live version of this application at [scattergories.lasithkg.au](https://scattergories.lasithkg.au)
 
 ## Description
 
