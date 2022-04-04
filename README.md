@@ -1,6 +1,6 @@
 # Scattergories
 
-## Live Deployment
+## Live Site
 
 You can view a live version of this application at [https://scattergories.lasithkg.au](https://scattergories.lasithkg.au)
 
