@@ -18,7 +18,7 @@
     "mongodb": "^3.5.2",
     "randomstring": "^1.1.5",
     "sass": "^1.49.9",
-    "socket.io": "^2.4.1"
+    "socket.io": "^2.5.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
