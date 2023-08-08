@@ -1,8 +1,8 @@
 # Scattergories
 
-## Live Site
-
-You can view a live version of this application at [scattergories.lasithkg.au](https://scattergories.lasithkg.au)
+<a href="https://scattergories.lasithkg.au" target="_blank">
+    <img style="width: 10rem; height: auto" src="assets/button_live-demo.png">
+</a>
 
 ## Description
 
