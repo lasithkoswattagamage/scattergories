@@ -44,6 +44,10 @@ The entire application has been dockerised so that it can be seemlessly deployed
 Change accordingly for production (`.env`) environments
 
 ```
+nvm install && nvm use
+cd frontend
+npm install --include=dev
+cd ..
 docker compose \
     --env-file .env.test \
     -f docker-compose.test.yaml \
@@ -73,5 +77,24 @@ docker compose \
 docker compose \
     --env-file .env.test \
     -f docker-compose.test.yaml \
+    down
+```
+
+## Production
+
+```
+# Copy test environmental file and make changes to .env
+cp .env.test .env
+
+# Deploying
+docker compose \
+    --env-file .env \
+    -f docker-compose.yaml \
+    up -d
+
+# Deprovisioning
+docker compose \
+    --env-file .env \
+    -f docker-compose.yaml \
     down
 ```

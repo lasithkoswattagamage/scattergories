@@ -1,16 +1,16 @@
-version: "3.9"
 services:
   frontend:
     depends_on: 
       - mongo
     build:
       context: ./frontend
+      args:
+        - NODE_ENV=production
     ports:
       - ${FRONTEND_PORT}:3000
     environment:
       MONGO_INITDB_USERNAME: ${MONGO_INITDB_USERNAME}
       MONGO_INITDB_PASSWORD: ${MONGO_INITDB_PASSWORD}
-      NODE_ENV: production
   mongo:
     image: mongo:5.0.6
     restart: always

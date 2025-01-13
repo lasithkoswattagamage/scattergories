@@ -1,4 +1,3 @@
-version: "3.9"
 services:
   frontend:
     depends_on: 
@@ -10,7 +9,6 @@ services:
     environment:
       MONGO_INITDB_USERNAME: ${MONGO_INITDB_USERNAME}
       MONGO_INITDB_PASSWORD: ${MONGO_INITDB_PASSWORD}
-      NODE_ENV: test
     volumes:
       - ./frontend:/usr/app/src
     command: ["npm", "run", "dev"]
