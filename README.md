@@ -1,6 +1,6 @@
 # Scattergories
 
-<a href="https://scattergories.lasithkg.au" target="_blank">
+<a href="https://scattergories.lasithkg.xyz" target="_blank">
     <img style="width: 10rem; height: auto" src="assets/button_live-demo.png">
 </a>
 
